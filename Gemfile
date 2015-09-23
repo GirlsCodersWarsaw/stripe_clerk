@@ -13,6 +13,7 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
-## STRIPE payment via card
+## STRIPE payment by card
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+
 
