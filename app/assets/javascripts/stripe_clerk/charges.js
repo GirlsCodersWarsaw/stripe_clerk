@@ -1,2 +1,8 @@
-// Place all the behaviors and hooks related to the matching controller here.
-// All this logic will automatically be available in application.js.
+// show transfer data after click "money transfer" button on order page:
+
+$(document).ready(function() {
+  $('.custom-button').click(function() {
+    var detailsDiv = $('#payment-data');
+    detailsDiv.css("display", "block");
+  });
+});
