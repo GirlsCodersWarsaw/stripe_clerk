@@ -16,4 +16,19 @@ gemspec
 ## STRIPE payment by card
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 
+group :test do
+  gem "poltergeist"
+  gem "phantomjs", :require => 'phantomjs/poltergeist'
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'capybara-screenshot'
+  gem 'database_cleaner'
+  gem "factory_girl_rails"
+  gem 'i18n-spec'
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'selenium-webdriver'
+  gem 'rack_session_access'
+end
+
 
