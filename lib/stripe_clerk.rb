@@ -1,4 +1,3 @@
+#require "office_clerk"
 require "stripe_clerk/engine"
 
-module StripeClerk
-end
