@@ -23,7 +23,7 @@ describe "pay with stripe", :js => true do
   it "works without sign in" do
     order = Order.new
     page.set_rack_session order: order.id
-    page.visit shop_order_path
+    page.visit main_app.shop_order_path
 
     click_button 'Pay with Card'
     stripe_iframe = all('iframe[name=stripe_checkout_app]').last
