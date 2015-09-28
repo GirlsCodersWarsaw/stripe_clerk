@@ -1,6 +1,23 @@
 require 'spec_helper'
 
+# module StripeClerk
+#   class Engine < ::Rails::Engine
+#     isolate_namespace StripeClerk
+#   end
+#
+#   Engine.routes.draw do
+#     resources :charges
+#   end
+#
+#   ShopController.class_eval do
+#    def order
+#
+#    end
+#   end
+# end
+
 describe "pay with stripe", :js => true do
+  # before(:each) {@routes = SalesClerk::Application.routes}
   # it "works with sign in" do
   #   clerk = sign_in
   #   order = create :order, email: clerk.email
@@ -23,7 +40,7 @@ describe "pay with stripe", :js => true do
   it "works without sign in" do
     order = Order.new
     page.set_rack_session order: order.id
-    page.visit main_app.shop_order_path
+    page.visit shop_order_path
 
     click_button 'Pay with Card'
     stripe_iframe = all('iframe[name=stripe_checkout_app]').last

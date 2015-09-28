@@ -1,6 +1,6 @@
 ENV["RAILS_ENV"] = 'test'
 
-require File.expand_path("../dummy/config/environment",  __FILE__)
+require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 
 #require "rails/all"
 require "rspec/rails"
@@ -24,6 +24,9 @@ RSpec.configure do |config|
     #     # => "be bigger than 2"
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
+
+  # config.include Rails.application.routes.url_helpers
+  # config.include SalesClerk::Application.routes.url_helpers
 
   # rspec-mocks config goes here. You can use an alternate test double
   # library (such as bogus or mocha) by changing the `mock_with` option here.
