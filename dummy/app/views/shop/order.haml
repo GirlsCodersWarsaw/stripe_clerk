@@ -1,0 +1,27 @@
+.row
+  %hr
+  .col-md-3
+    %h4.highlight
+      =t(:payment_type)
+
+  .col-md-9
+    .row
+      .col-md-9
+        - if @order.paid_on && @order.payment_type == "stripe"
+          = render partial: 'stripe_clerk/charges/show', locals: {order: @order}
+        - elsif @order.paid_on
+          Thank you, we got your money transfer (#{euros @order.total_price})
+        - else
+          = render partial: 'stripe_clerk/charges/new', locals: {order: @order}
+          %div#payment-data
+            %h4 Ostoksen maksaminen
+            Tällä hetkellä verkkokaupassamme maksutapana on ennakkolasku.
+            Tilauksesi lähetetään, kun olet maksanut sen ja maksusi on kirjautunut tilillemme.
+            %br/
+            %b Tilinumero
+            FI1017 4530 0013 2474, mainitse viestikentässä
+            %b
+              tilausnumerosi
+              = @order.number + "."
+            %br/
+            Saat tilausvahvistuksen tiedot myös sähköpostiisi. Kun maksusi on kirjautunut tilille, toimitamme tilaamasi tuotteet. Ne lähtevät normaalisti 1-3 arkipäivän kuluessa.
