@@ -18,8 +18,9 @@ Configuration
 Configure your Stripe account credits.
 
 1. Link your credentials from Stripe account (Your Account -> Account setting -> API keys) with environment variables in config/initializers/stripe.rb:
-* publishable_key
-* secret_key
+
+  * publishable_key
+  * secret_key
 
 Remember not to put them directly!
 
