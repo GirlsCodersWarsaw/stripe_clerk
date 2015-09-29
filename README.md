@@ -1,6 +1,7 @@
 SUMMARY
 =======
-This extension allows you to add Stripe payment module to your shop. You can link it with your Stripe account in order to charge money for orders.
+This extension allows you to add Stripe checkout.js payment module to your shop. You can link it with your Stripe account to charge money for clients
+ orders.
 
 INSTALLATION
 ============
@@ -17,10 +18,13 @@ Enjoy!
 Configuration
 =============
 Configure your Stripe account credits.
-*1. Put your credentials from Stripe account into config/initializers/stripe.rb
+
+1. Put your credentials from Stripe account into config/initializers/stripe.rb
+
+
 
 
 TODO
 ====
-Tests are not very good on this one. Pull requests welcome :-)
+Test more.
 
