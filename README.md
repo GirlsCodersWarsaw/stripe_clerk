@@ -1,9 +1,9 @@
-SUMMARY
+Summary
 =======
-This extension allows you to add Stripe checkout.js payment module to your shop. You can link it with your Stripe account to charge money for clients
+This extension allows you to add Stripe checkout.js payment module to your shop. You can link it with your Stripe account to charge money for clients'
  orders.
 
-INSTALLATION
+Instalation
 ============
 To install it, you need to add the following line to your Gemfile:
 
@@ -22,11 +22,11 @@ Configure your Stripe account credits.
   * publishable_key
   * secret_key
 
-Remember not to put them directly!
+Remember not to put them directly into app!
 
 
 
 TODO
 ====
-Test more.
+Need more testing.
 
