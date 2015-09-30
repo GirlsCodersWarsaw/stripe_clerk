@@ -10,7 +10,7 @@ To install Stripe, you need to update sales_clerk version:
 
 1. Enter your app's root and run:
 
-git pull and bundle???
+  git pull and bundle???
 
 
 
@@ -43,14 +43,20 @@ This will implement the following changes:
 
 Configuration
 =============
-Configure your Stripe account credits.
+In order to use to make charges, you need to have a Stripe account. You can register [here](https://stripe.com).
 
-1. Link your credentials from Stripe account (Your Account -> Account setting -> API keys) with environment variables in config/initializers/stripe.rb:
+1. Configure your Stripe account credits.
+
+Link your credentials from Stripe account (Your Account -> Account setting -> API keys) with environment variables in config/initializers/stripe.rb:
 
   * publishable_key
   * secret_key
 
 Remember not to put them directly into app!
+
+2. You can also custom your Stripe's frame appearance, for example adding your shop logo, label or change currency. More details in [Stripe checkout documentation](https://stripe.com/docs/checkout).
+
+[!](/app/assets/images/stripe.png)
 
 
 Credits
