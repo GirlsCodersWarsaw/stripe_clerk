@@ -14,26 +14,27 @@ git pull and bundle???
 
 
 
+
 This will implement the following changes:
 
-1. Add stripe_clerk engine by adding the following lines to sales_clerk's Gemfile:
+* add stripe_clerk engine by adding the following lines to sales_clerk's Gemfile:
 
 ` gem 'stripe_clerk' `
 ` gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby' `
 
-2. Add the following line to routes (sales_clerk/config/routes.rb):
+* add the following line to routes (sales_clerk/config/routes.rb):
 
 ` mount StripeClerk::Engine => "/" `
 
-3. Add the following line to sales_clerk/app/assets/javascripts/sales_clerk.js:
+* add the following line to sales_clerk/app/assets/javascripts/sales_clerk.js:
 
 ` //= require stripe_clerk/charges `
 
-4. Add styling to sales_clerk's app/assets/stylesheets/sales_clerk.css.scss (link).
+* add styling to sales_clerk's app/assets/stylesheets/sales_clerk.css.scss (link).
 
-5. Add partial view _payment_stripe.haml (link).
+* add partial view _payment_stripe.haml (link).
 
-5. Remove payment_type row from order.haml view and add the following line instead (sales_clerk/app/views/shop/order.haml):
+* remove payment_type row from order.haml view and add the following line instead (sales_clerk/app/views/shop/order.haml):
 
 ` = render :partial => 'payment_stripe', :locals => { :order => @order } `
 
