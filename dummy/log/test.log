@@ -1901,3 +1901,138 @@ Processing by ShopController#order as HTML
   Rendered /home/ana/RailsProjects/RGSoC/RubyClerks/stripe_clerk/app/views/stripe_clerk/charges/_show.html.haml (4.4ms)
   Rendered shop/order.haml within layouts/application (5.8ms)
 Completed 200 OK in 9ms (Views: 6.6ms | ActiveRecord: 0.2ms)
+  [1m[36mPurchase Load (0.2ms)[0m  [1mSELECT "purchases".* FROM "purchases"  WHERE "purchases"."name" IS NULL[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (14.1ms)[0m  [1mINSERT INTO "products" ("cost", "created_at", "inventory", "link", "name", "price", "properties", "tax", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cost", 5.0], ["created_at", "2015-09-30 13:19:57.056112"], ["inventory", 5], ["link", "product_1"], ["name", "product 1"], ["price", 10.0], ["properties", "--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}\n"], ["tax", 10.0], ["updated_at", "2015-09-30 13:19:57.056112"]]
+  [1m[35m (177.6ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "baskets" ("created_at", "total_price", "total_tax", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", "2015-09-30 13:19:57.322041"], ["total_price", 10.0], ["total_tax", 0.91], ["updated_at", "2015-09-30 13:19:57.322041"]]
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "items" ("basket_id", "created_at", "name", "price", "product_id", "tax", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["basket_id", 38], ["created_at", "2015-09-30 13:19:57.324582"], ["name", "product 1"], ["price", 10.0], ["product_id", 38], ["tax", 10.0], ["updated_at", "2015-09-30 13:19:57.324582"]]
+  [1m[35mBasket Load (0.3ms)[0m  SELECT  "baskets".* FROM "baskets"  WHERE "baskets"."id" = ?  ORDER BY created_at DESC LIMIT 1  [["id", 38]]
+  [1m[36mItem Load (0.2ms)[0m  [1mSELECT "items".* FROM "items"  WHERE "items"."basket_id" = ?[0m  [["basket_id", 38]]
+  [1m[35mSQL (0.1ms)[0m  UPDATE "baskets" SET "updated_at" = '2015-09-30 13:19:57.332379' WHERE "baskets"."id" = 38
+  [1m[36m (187.1ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mOrder Load (0.7ms)[0m  [1mSELECT  "orders".* FROM "orders"   ORDER BY created_at DESC LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "orders" ("address", "created_at", "email", "number", "ordered_on", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["address", "--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}\n"], ["created_at", "2015-09-30 13:19:57.888126"], ["email", "test1@test.com"], ["number", "R201530037"], ["ordered_on", "2015-09-30"], ["updated_at", "2015-09-30 13:19:57.888126"]]
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "baskets" SET "kori_id" = ?, "kori_type" = ?, "updated_at" = ? WHERE "baskets"."id" = 38[0m  [["kori_id", 38], ["kori_type", "Order"], ["updated_at", "2015-09-30 13:19:57.891145"]]
+  [1m[35m (170.2ms)[0m  commit transaction
+Started GET "/rack_session/edit" for 127.0.0.1 at 2015-09-30 15:20:00 +0200
+Started PUT "/rack_session" for 127.0.0.1 at 2015-09-30 15:20:01 +0200
+Started GET "/rack_session" for 127.0.0.1 at 2015-09-30 15:20:01 +0200
+Started GET "/order" for 127.0.0.1 at 2015-09-30 15:20:01 +0200
+Processing by ShopController#order as HTML
+  [1m[36mOrder Load (0.9ms)[0m  [1mSELECT  "orders".* FROM "orders"  WHERE "orders"."id" = ?  ORDER BY created_at DESC LIMIT 1[0m  [["id", 38]]
+  [1m[35mBasket Load (0.4ms)[0m  SELECT  "baskets".* FROM "baskets"  WHERE "baskets"."kori_id" = ? AND "baskets"."kori_type" = ?  ORDER BY created_at DESC LIMIT 1  [["kori_id", 38], ["kori_type", "Order"]]
+  Rendered /home/basia/projects/rubyclerk/stripe_clerk/app/views/stripe_clerk/charges/_new.html.haml (45.0ms)
+  Rendered shop/order.haml within layouts/application (62.1ms)
+Completed 200 OK in 538ms (Views: 106.9ms | ActiveRecord: 2.4ms)
+Started GET "/assets/application.css" for 127.0.0.1 at 2015-09-30 15:20:01 +0200
+Started GET "/assets/application.js" for 127.0.0.1 at 2015-09-30 15:20:02 +0200
+Started POST "/charges" for 127.0.0.1 at 2015-09-30 15:20:09 +0200
+Processing by StripeClerk::ChargesController#create as HTML
+  Parameters: {"utf8"=>"✓", "stripeToken"=>"tok_16qkV8Bj62FxAyFm5OdL4tO9", "stripeTokenType"=>"card", "stripeEmail"=>"user@example.com"}
+  [1m[36mOrder Load (0.2ms)[0m  [1mSELECT  "orders".* FROM "orders"  WHERE "orders"."id" = ?  ORDER BY created_at DESC LIMIT 1[0m  [["id", 38]]
+  [1m[35mBasket Load (0.2ms)[0m  SELECT  "baskets".* FROM "baskets"  WHERE "baskets"."kori_id" = ? AND "baskets"."kori_type" = ?  ORDER BY created_at DESC LIMIT 1  [["kori_id", 38], ["kori_type", "Order"]]
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "orders" SET "address" = ?, "paid_on" = ?, "payment_info" = ?, "payment_type" = ?, "updated_at" = ? WHERE "orders"."id" = 38  [["address", "--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}\n"], ["paid_on", "2015-09-30"], ["payment_info", "ch_16qkVDBj62FxAyFmVGUNFNM3"], ["payment_type", "stripe"], ["updated_at", "2015-09-30 13:20:11.588579"]]
+  [1m[36m (128.4ms)[0m  [1mcommit transaction[0m
+Redirected to http://127.0.0.1:48824/order
+Completed 302 Found in 2344ms (ActiveRecord: 129.7ms)
+Started GET "/order" for 127.0.0.1 at 2015-09-30 15:20:11 +0200
+Processing by ShopController#order as HTML
+  [1m[35mOrder Load (0.2ms)[0m  SELECT  "orders".* FROM "orders"  WHERE "orders"."id" = ?  ORDER BY created_at DESC LIMIT 1  [["id", 38]]
+  [1m[36mBasket Load (0.2ms)[0m  [1mSELECT  "baskets".* FROM "baskets"  WHERE "baskets"."kori_id" = ? AND "baskets"."kori_type" = ?  ORDER BY created_at DESC LIMIT 1[0m  [["kori_id", 38], ["kori_type", "Order"]]
+  Rendered /home/basia/projects/rubyclerk/stripe_clerk/app/views/stripe_clerk/charges/_show.html.haml (5.1ms)
+  Rendered shop/order.haml within layouts/application (27.8ms)
+Completed 200 OK in 32ms (Views: 28.9ms | ActiveRecord: 0.4ms)
+  [1m[36mPurchase Load (0.1ms)[0m  [1mSELECT "purchases".* FROM "purchases"  WHERE "purchases"."name" IS NULL[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "products" ("cost", "created_at", "inventory", "link", "name", "price", "properties", "tax", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cost", 5.0], ["created_at", "2015-09-30 13:23:37.181638"], ["inventory", 5], ["link", "product_1"], ["name", "product 1"], ["price", 10.0], ["properties", "--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}\n"], ["tax", 10.0], ["updated_at", "2015-09-30 13:23:37.181638"]]
+  [1m[35m (119.3ms)[0m  commit transaction
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "baskets" ("created_at", "total_price", "total_tax", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", "2015-09-30 13:23:37.321738"], ["total_price", 10.0], ["total_tax", 0.91], ["updated_at", "2015-09-30 13:23:37.321738"]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "items" ("basket_id", "created_at", "name", "price", "product_id", "tax", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["basket_id", 39], ["created_at", "2015-09-30 13:23:37.324067"], ["name", "product 1"], ["price", 10.0], ["product_id", 39], ["tax", 10.0], ["updated_at", "2015-09-30 13:23:37.324067"]]
+  [1m[35mBasket Load (0.3ms)[0m  SELECT  "baskets".* FROM "baskets"  WHERE "baskets"."id" = ?  ORDER BY created_at DESC LIMIT 1  [["id", 39]]
+  [1m[36mItem Load (0.2ms)[0m  [1mSELECT "items".* FROM "items"  WHERE "items"."basket_id" = ?[0m  [["basket_id", 39]]
+  [1m[35mSQL (0.1ms)[0m  UPDATE "baskets" SET "updated_at" = '2015-09-30 13:23:37.331849' WHERE "baskets"."id" = 39
+  [1m[36m (114.0ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mOrder Load (0.7ms)[0m  [1mSELECT  "orders".* FROM "orders"   ORDER BY created_at DESC LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "orders" ("address", "created_at", "email", "number", "ordered_on", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["address", "--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}\n"], ["created_at", "2015-09-30 13:23:37.670531"], ["email", "test1@test.com"], ["number", "R201530038"], ["ordered_on", "2015-09-30"], ["updated_at", "2015-09-30 13:23:37.670531"]]
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "baskets" SET "kori_id" = ?, "kori_type" = ?, "updated_at" = ? WHERE "baskets"."id" = 39[0m  [["kori_id", 39], ["kori_type", "Order"], ["updated_at", "2015-09-30 13:23:37.673633"]]
+  [1m[35m (122.1ms)[0m  commit transaction
+Started GET "/rack_session/edit" for 127.0.0.1 at 2015-09-30 15:23:38 +0200
+Started PUT "/rack_session" for 127.0.0.1 at 2015-09-30 15:23:38 +0200
+Started GET "/rack_session" for 127.0.0.1 at 2015-09-30 15:23:38 +0200
+Started GET "/order" for 127.0.0.1 at 2015-09-30 15:23:38 +0200
+Processing by ShopController#order as HTML
+  [1m[36mOrder Load (0.7ms)[0m  [1mSELECT  "orders".* FROM "orders"  WHERE "orders"."id" = ?  ORDER BY created_at DESC LIMIT 1[0m  [["id", 39]]
+  [1m[35mBasket Load (0.2ms)[0m  SELECT  "baskets".* FROM "baskets"  WHERE "baskets"."kori_id" = ? AND "baskets"."kori_type" = ?  ORDER BY created_at DESC LIMIT 1  [["kori_id", 39], ["kori_type", "Order"]]
+  Rendered /home/basia/projects/rubyclerk/stripe_clerk/app/views/stripe_clerk/charges/_new.html.haml (13.6ms)
+  Rendered shop/order.haml within layouts/application (22.1ms)
+Completed 200 OK in 115ms (Views: 31.5ms | ActiveRecord: 1.5ms)
+Started GET "/assets/application.css" for 127.0.0.1 at 2015-09-30 15:23:38 +0200
+Started GET "/assets/application.js" for 127.0.0.1 at 2015-09-30 15:23:38 +0200
+Started POST "/charges" for 127.0.0.1 at 2015-09-30 15:23:45 +0200
+Processing by StripeClerk::ChargesController#create as HTML
+  Parameters: {"utf8"=>"✓", "stripeToken"=>"tok_16qkYcBj62FxAyFmp3DIv4Cz", "stripeTokenType"=>"card", "stripeEmail"=>"user@example.com"}
+  [1m[36mOrder Load (0.2ms)[0m  [1mSELECT  "orders".* FROM "orders"  WHERE "orders"."id" = ?  ORDER BY created_at DESC LIMIT 1[0m  [["id", 39]]
+  [1m[35mBasket Load (0.2ms)[0m  SELECT  "baskets".* FROM "baskets"  WHERE "baskets"."kori_id" = ? AND "baskets"."kori_type" = ?  ORDER BY created_at DESC LIMIT 1  [["kori_id", 39], ["kori_type", "Order"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  UPDATE "orders" SET "address" = ?, "paid_on" = ?, "payment_info" = ?, "payment_type" = ?, "updated_at" = ? WHERE "orders"."id" = 39  [["address", "--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}\n"], ["paid_on", "2015-09-30"], ["payment_info", "ch_16qkYhBj62FxAyFm21xi7fnr"], ["payment_type", "stripe"], ["updated_at", "2015-09-30 13:23:47.379036"]]
+  [1m[36m (118.4ms)[0m  [1mcommit transaction[0m
+Redirected to http://127.0.0.1:43026/order
+Completed 302 Found in 2265ms (ActiveRecord: 119.9ms)
+Started GET "/order" for 127.0.0.1 at 2015-09-30 15:23:47 +0200
+Processing by ShopController#order as HTML
+  [1m[35mOrder Load (0.2ms)[0m  SELECT  "orders".* FROM "orders"  WHERE "orders"."id" = ?  ORDER BY created_at DESC LIMIT 1  [["id", 39]]
+  [1m[36mBasket Load (0.3ms)[0m  [1mSELECT  "baskets".* FROM "baskets"  WHERE "baskets"."kori_id" = ? AND "baskets"."kori_type" = ?  ORDER BY created_at DESC LIMIT 1[0m  [["kori_id", 39], ["kori_type", "Order"]]
+  Rendered /home/basia/projects/rubyclerk/stripe_clerk/app/views/stripe_clerk/charges/_show.html.haml (6.7ms)
+  Rendered shop/order.haml within layouts/application (10.0ms)
+Completed 200 OK in 14ms (Views: 11.1ms | ActiveRecord: 0.5ms)
+  [1m[36mPurchase Load (0.1ms)[0m  [1mSELECT "purchases".* FROM "purchases"  WHERE "purchases"."name" IS NULL[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "products" ("cost", "created_at", "inventory", "link", "name", "price", "properties", "tax", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["cost", 5.0], ["created_at", "2015-09-30 13:36:48.976925"], ["inventory", 5], ["link", "product_1"], ["name", "product 1"], ["price", 10.0], ["properties", "--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}\n"], ["tax", 10.0], ["updated_at", "2015-09-30 13:36:48.976925"]]
+  [1m[35m (303.8ms)[0m  commit transaction
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "baskets" ("created_at", "total_price", "total_tax", "updated_at") VALUES (?, ?, ?, ?)  [["created_at", "2015-09-30 13:36:49.301733"], ["total_price", 10.0], ["total_tax", 0.91], ["updated_at", "2015-09-30 13:36:49.301733"]]
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "items" ("basket_id", "created_at", "name", "price", "product_id", "tax", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?)[0m  [["basket_id", 40], ["created_at", "2015-09-30 13:36:49.304070"], ["name", "product 1"], ["price", 10.0], ["product_id", 40], ["tax", 10.0], ["updated_at", "2015-09-30 13:36:49.304070"]]
+  [1m[35mBasket Load (0.3ms)[0m  SELECT  "baskets".* FROM "baskets"  WHERE "baskets"."id" = ?  ORDER BY created_at DESC LIMIT 1  [["id", 40]]
+  [1m[36mItem Load (0.2ms)[0m  [1mSELECT "items".* FROM "items"  WHERE "items"."basket_id" = ?[0m  [["basket_id", 40]]
+  [1m[35mSQL (0.1ms)[0m  UPDATE "baskets" SET "updated_at" = '2015-09-30 13:36:49.311775' WHERE "baskets"."id" = 40
+  [1m[36m (254.3ms)[0m  [1mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36mOrder Load (0.7ms)[0m  [1mSELECT  "orders".* FROM "orders"   ORDER BY created_at DESC LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "orders" ("address", "created_at", "email", "number", "ordered_on", "updated_at") VALUES (?, ?, ?, ?, ?, ?)  [["address", "--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}\n"], ["created_at", "2015-09-30 13:36:49.875453"], ["email", "test1@test.com"], ["number", "R201530039"], ["ordered_on", "2015-09-30"], ["updated_at", "2015-09-30 13:36:49.875453"]]
+  [1m[36mSQL (0.3ms)[0m  [1mUPDATE "baskets" SET "kori_id" = ?, "kori_type" = ?, "updated_at" = ? WHERE "baskets"."id" = 40[0m  [["kori_id", 40], ["kori_type", "Order"], ["updated_at", "2015-09-30 13:36:49.878389"]]
+  [1m[35m (598.0ms)[0m  commit transaction
+Started GET "/rack_session/edit" for 127.0.0.1 at 2015-09-30 15:36:50 +0200
+Started PUT "/rack_session" for 127.0.0.1 at 2015-09-30 15:36:51 +0200
+Started GET "/rack_session" for 127.0.0.1 at 2015-09-30 15:36:51 +0200
+Started GET "/order" for 127.0.0.1 at 2015-09-30 15:36:51 +0200
+Processing by ShopController#order as HTML
+  [1m[36mOrder Load (0.7ms)[0m  [1mSELECT  "orders".* FROM "orders"  WHERE "orders"."id" = ?  ORDER BY created_at DESC LIMIT 1[0m  [["id", 40]]
+  [1m[35mBasket Load (0.2ms)[0m  SELECT  "baskets".* FROM "baskets"  WHERE "baskets"."kori_id" = ? AND "baskets"."kori_type" = ?  ORDER BY created_at DESC LIMIT 1  [["kori_id", 40], ["kori_type", "Order"]]
+  Rendered /home/basia/projects/rubyclerk/stripe_clerk/app/views/stripe_clerk/charges/_new.html.haml (13.9ms)
+  Rendered shop/order.haml within layouts/application (23.0ms)
+Completed 200 OK in 132ms (Views: 41.5ms | ActiveRecord: 1.6ms)
+Started GET "/assets/application.css" for 127.0.0.1 at 2015-09-30 15:36:51 +0200
+Started GET "/assets/application.js" for 127.0.0.1 at 2015-09-30 15:36:51 +0200
+Started POST "/charges" for 127.0.0.1 at 2015-09-30 15:36:57 +0200
+Processing by StripeClerk::ChargesController#create as HTML
+  Parameters: {"utf8"=>"✓", "stripeToken"=>"tok_16qklPBj62FxAyFm0xASnzkc", "stripeTokenType"=>"card", "stripeEmail"=>"user@example.com"}
+  [1m[36mOrder Load (0.2ms)[0m  [1mSELECT  "orders".* FROM "orders"  WHERE "orders"."id" = ?  ORDER BY created_at DESC LIMIT 1[0m  [["id", 40]]
+  [1m[35mBasket Load (0.2ms)[0m  SELECT  "baskets".* FROM "baskets"  WHERE "baskets"."kori_id" = ? AND "baskets"."kori_type" = ?  ORDER BY created_at DESC LIMIT 1  [["kori_id", 40], ["kori_type", "Order"]]
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "orders" SET "address" = ?, "paid_on" = ?, "payment_info" = ?, "payment_type" = ?, "updated_at" = ? WHERE "orders"."id" = 40  [["address", "--- !ruby/hash:ActiveSupport::HashWithIndifferentAccess {}\n"], ["paid_on", "2015-09-30"], ["payment_info", "ch_16qklTBj62FxAyFmfjJTTvHO"], ["payment_type", "stripe"], ["updated_at", "2015-09-30 13:37:00.121413"]]
+  [1m[36m (289.6ms)[0m  [1mcommit transaction[0m
+Redirected to http://127.0.0.1:48353/order
+Completed 302 Found in 2471ms (ActiveRecord: 291.0ms)
+Started GET "/order" for 127.0.0.1 at 2015-09-30 15:37:00 +0200
+Processing by ShopController#order as HTML
+  [1m[35mOrder Load (0.2ms)[0m  SELECT  "orders".* FROM "orders"  WHERE "orders"."id" = ?  ORDER BY created_at DESC LIMIT 1  [["id", 40]]
+  [1m[36mBasket Load (0.2ms)[0m  [1mSELECT  "baskets".* FROM "baskets"  WHERE "baskets"."kori_id" = ? AND "baskets"."kori_type" = ?  ORDER BY created_at DESC LIMIT 1[0m  [["kori_id", 40], ["kori_type", "Order"]]
+  Rendered /home/basia/projects/rubyclerk/stripe_clerk/app/views/stripe_clerk/charges/_show.html.haml (5.2ms)
+  Rendered shop/order.haml within layouts/application (7.8ms)
+Completed 200 OK in 12ms (Views: 9.0ms | ActiveRecord: 0.4ms)
