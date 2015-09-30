@@ -56,7 +56,7 @@ Remember not to put them directly into app!
 
 2. You can also custom your Stripe's frame appearance, for example adding your shop logo, label or change currency. More details in [Stripe checkout documentation](https://stripe.com/docs/checkout).
 
-[!](/app/assets/images/stripe.png)
+![stripe](/app/assets/images/stripe.png)
 
 
 Credits
