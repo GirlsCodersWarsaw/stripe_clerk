@@ -47,12 +47,12 @@ In order to use to make charges, you need to have a Stripe account. You can regi
 
 1. Configure your Stripe account credits.
 
-Link your credentials from Stripe account (Your Account -> Account setting -> API keys) with environment variables in config/initializers/stripe.rb:
+  Link your credentials from Stripe account (Your Account -> Account setting -> API keys) with environment variables in config/initializers/stripe.rb:
 
   * publishable_key
   * secret_key
 
-Remember not to put them directly into app!
+  Remember not to put them directly into app!
 
 2. You can also custom your Stripe's frame appearance, for example adding your shop logo, label or change currency. More details in [Stripe checkout documentation](https://stripe.com/docs/checkout).
 
