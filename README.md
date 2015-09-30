@@ -19,16 +19,17 @@ This will implement the following changes:
 
 * add stripe_clerk engine by adding the following lines to sales_clerk's Gemfile:
 
-` gem 'stripe_clerk' `
-` gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby' `
+  ` gem 'stripe_clerk' `
+
+  ` gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby' `
 
 * add the following line to routes (sales_clerk/config/routes.rb):
 
-` mount StripeClerk::Engine => "/" `
+  ` mount StripeClerk::Engine => "/" `
 
 * add the following line to sales_clerk/app/assets/javascripts/sales_clerk.js:
 
-` //= require stripe_clerk/charges `
+  ` //= require stripe_clerk/charges `
 
 * add styling to sales_clerk's app/assets/stylesheets/sales_clerk.css.scss (link).
 
@@ -36,7 +37,7 @@ This will implement the following changes:
 
 * remove payment_type row from order.haml view and add the following line instead (sales_clerk/app/views/shop/order.haml):
 
-` = render :partial => 'payment_stripe', :locals => { :order => @order } `
+  ` = render :partial => 'payment_stripe', :locals => { :order => @order } `
 
 
 
@@ -54,7 +55,9 @@ Remember not to put them directly into app!
 
 Credits
 ====
-__RubyClerks__ Thanks to project author and our amazing mentor [Torsten Rüger](https://github.com/dancinglightning)
-__TeamGirlsCodersWarsaw__: Thanks to our fantastic coaches: [Jarek](https://github.com/pjar), [Łukasz](https://github.com/lsolniczek), [Tomasz](https://github.com/tomash) and [Piotr](https://github.com/chastell) and our lovely supervisor [Magda](https://github.com/madziaf)!
+__RubyClerks:__ Thanks to project author and our amazing mentor [Torsten Rüger](https://github.com/dancinglightning)
+
+__TeamGirlsCodersWarsaw:__ Thanks to our fantastic coaches: [Jarek](https://github.com/pjar), [Łukasz](https://github.com/lsolniczek), [Tomasz](https://github.com/tomash) and [Piotr](https://github.com/chastell) and our lovely supervisor [Magda](https://github.com/madziaf)!
+
 __Authors:__ [Anna Góra](https://github.com/Czarrrna) & [Barbara Kłosowska](https://github.com/aberracja)
 
