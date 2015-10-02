@@ -54,6 +54,8 @@ In order to use to make charges, you need to have a Stripe account. You can regi
 
 Credits
 ====
+Stripe Clerk engine to RubyClerks was made as a part of Rails Girls Summer of Code 2015 program.
+
 __RubyClerks:__ Thanks to project author and our amazing mentor [Torsten Rüger](https://github.com/dancinglightning)
 
 __TeamGirlsCodersWarsaw:__ Thanks to our fantastic coaches: [Jarek](https://github.com/pjar), [Łukasz](https://github.com/lsolniczek), [Tomasz](https://github.com/tomash) and [Piotr](https://github.com/chastell) and our lovely supervisor [Magda](https://github.com/madziaf)!
