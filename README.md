@@ -6,13 +6,7 @@ This extension allows you to add Stripe payment module to your shop. You can lin
 Instalation
 ============
 
-To install Stripe, you need to update sales_clerk version:
-
-1. Enter your app's root and run:
-
-  git pull and bundle???
-
-
+To install Stripe, you need to update sales_clerk version.
 
 
 This will implement the following changes:
@@ -38,7 +32,6 @@ This will implement the following changes:
 * remove payment_type row from order.haml view and add the following line instead (sales_clerk/app/views/shop/order.haml):
 
   ` = render :partial => 'payment_stripe', :locals => { :order => @order } `
-
 
 
 Configuration

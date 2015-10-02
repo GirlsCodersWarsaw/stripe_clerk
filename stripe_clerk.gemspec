@@ -7,7 +7,7 @@ require "stripe_clerk/version"
 Gem::Specification.new do |s|
   s.name        = "stripe_clerk"
   s.version     = StripeClerk::VERSION
-  s.authors     = ["Basia Klosowska"]
+  s.authors     = ["Basia Klosowska, Anna Góra"]
   s.email       = ["barbaraklosowska@gmail.com"]
   s.homepage    = "TODO"
   s.summary     = "TODO: Summary of StripeClerk."
