@@ -1,0 +1,591 @@
+  [1m[36m (13.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (12.4ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (13.0ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (12.3ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (12.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[36m (15.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35m (0.4ms)[0m  select sqlite_version(*)
+  [1m[36m (13.0ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.2ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (12.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('0')[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to Clerks (20150924143814)
+  [1m[35m (0.2ms)[0m  begin transaction
+  [1m[36m (2.6ms)[0m  [1mCREATE TABLE "clerks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar(255) DEFAULT '' NOT NULL, "admin" boolean DEFAULT 'f', "encrypted_password" varchar(255), "password_salt" varchar(255), "address" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (0.2ms)[0m  [1mCREATE UNIQUE INDEX "index_clerks_on_email" ON "clerks" ("email")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150924143814"]]
+  [1m[36m (24.9ms)[0m  [1mcommit transaction[0m
+Migrating to Suppliers (20150924143815)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.2ms)[0m  [1mCREATE TABLE "suppliers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "supplier_name" varchar(255), "address" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150924143815"]]
+  [1m[36m (10.5ms)[0m  [1mcommit transaction[0m
+Migrating to Categories (20150924143816)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.4ms)[0m  [1mCREATE TABLE "categories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "category_id" integer, "online" boolean DEFAULT 'f', "name" varchar(255), "description" text DEFAULT '', "summary" text DEFAULT '', "position" integer DEFAULT 1, "link" varchar(255), "main_picture_file_name" varchar(255), "main_picture_content_type" varchar(255), "main_picture_file_size" integer, "main_picture_updated_at" datetime, "extra_picture_file_name" varchar(255), "extra_picture_content_type" varchar(255), "extra_picture_file_size" integer, "extra_picture_updated_at" datetime, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.3ms)[0m  CREATE UNIQUE INDEX "index_categories_on_link" ON "categories" ("link")
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150924143816"]]
+  [1m[35m (11.5ms)[0m  commit transaction
+Migrating to Items (20150924143817)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  CREATE TABLE "items" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "quantity" integer DEFAULT 1, "price" float DEFAULT 0, "tax" float DEFAULT 0, "name" varchar(255), "product_id" integer, "basket_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150924143817"]]
+  [1m[35m (12.4ms)[0m  commit transaction
+Migrating to Orders (20150924143818)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "orders" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "number" varchar(255), "note" varchar(255) DEFAULT '', "email" varchar(255), "ordered_on" date, "paid_on" date, "canceled_on" date, "shipped_on" date, "payment_type" varchar(255), "payment_info" varchar(255), "shipment_type" varchar(255), "shipment_info" varchar(255), "shipment_price" float DEFAULT 0, "shipment_tax" float DEFAULT 0, "address" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150924143818"]]
+  [1m[35m (11.2ms)[0m  commit transaction
+Migrating to Baskets (20150924143819)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.2ms)[0m  CREATE TABLE "baskets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "kori_id" integer, "kori_type" varchar(255), "total_price" decimal DEFAULT 0.0, "total_tax" decimal DEFAULT 0.0, "locked" date, "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150924143819"]]
+  [1m[35m (12.4ms)[0m  commit transaction
+Migrating to Purchases (20150924143820)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.5ms)[0m  CREATE TABLE "purchases" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "ordered_on" date, "received_on" date, "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150924143820"]]
+  [1m[35m (11.3ms)[0m  commit transaction
+Migrating to Products (20150924143821)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.7ms)[0m  CREATE TABLE "products" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "price" float NOT NULL, "name" varchar(255) NOT NULL, "link" varchar(255), "description" text DEFAULT '', "summary" text DEFAULT '', "main_picture_file_name" varchar(255), "main_picture_content_type" varchar(255), "main_picture_file_size" integer, "main_picture_updated_at" datetime, "extra_picture_file_name" varchar(255), "extra_picture_content_type" varchar(255), "extra_picture_file_size" integer, "extra_picture_updated_at" datetime, "online" boolean DEFAULT 'f', "cost" float DEFAULT 0.0, "weight" float DEFAULT 0.1, "ean" varchar(255) DEFAULT '', "tax" float DEFAULT 0.0, "inventory" integer DEFAULT 0, "stock_level" integer DEFAULT 0, "properties" varchar(255) DEFAULT '', "scode" varchar(255) DEFAULT '', "deleted_on" date, "product_id" integer, "category_id" integer, "supplier_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mCREATE  INDEX "index_products_on_product_id" ON "products" ("product_id")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_product_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_product_id' AND type='index'
+
+  [1m[36m (0.2ms)[0m  [1mCREATE  INDEX "index_products_on_category_id" ON "products" ("category_id")[0m
+  [1m[35m (0.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_category_id' AND type='index'
+
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_product_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_product_id' AND type='index'
+[0m
+  [1m[35m (0.2ms)[0m  CREATE  INDEX "index_products_on_supplier_id" ON "products" ("supplier_id")
+  [1m[36m (1.0ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_supplier_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_supplier_id' AND type='index'
+[0m
+  [1m[35m (0.3ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_category_id' AND type='index'
+
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_product_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_product_id' AND type='index'
+[0m
+  [1m[35m (0.5ms)[0m  CREATE  INDEX "index_products_on_link" ON "products" ("link")
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150924143821"]]
+  [1m[35m (13.5ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_categories_on_link' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_categories_on_link' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_clerks_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_clerks_on_email' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_link' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_link' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_supplier_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_supplier_id' AND type='index'
+[0m
+  [1m[35m (0.3ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_category_id' AND type='index'
+
+  [1m[36m (0.2ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_product_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_product_id' AND type='index'
+[0m
+  [1m[36mPurchase Load (0.1ms)[0m  [1mSELECT "purchases".* FROM "purchases"  WHERE "purchases"."name" IS NULL[0m
+  [1m[35m (22.4ms)[0m  CREATE TABLE "baskets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "kori_id" integer, "kori_type" varchar(255), "total_price" decimal DEFAULT 0.0, "total_tax" decimal DEFAULT 0.0, "locked" date, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (11.6ms)[0m  [1mCREATE TABLE "categories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "category_id" integer, "online" boolean DEFAULT 'f', "name" varchar(255), "description" text DEFAULT '', "summary" text DEFAULT '', "position" integer DEFAULT 1, "link" varchar(255), "main_picture_file_name" varchar(255), "main_picture_content_type" varchar(255), "main_picture_file_size" integer, "main_picture_updated_at" datetime, "extra_picture_file_name" varchar(255), "extra_picture_content_type" varchar(255), "extra_picture_file_size" integer, "extra_picture_updated_at" datetime, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.2ms)[0m  select sqlite_version(*)
+  [1m[36m (9.3ms)[0m  [1mCREATE UNIQUE INDEX "index_categories_on_link" ON "categories" ("link")[0m
+  [1m[35m (10.3ms)[0m  CREATE TABLE "clerks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar(255) DEFAULT '' NOT NULL, "admin" boolean DEFAULT 'f', "encrypted_password" varchar(255), "password_salt" varchar(255), "address" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (11.2ms)[0m  [1mCREATE UNIQUE INDEX "index_clerks_on_email" ON "clerks" ("email")[0m
+  [1m[35m (11.6ms)[0m  CREATE TABLE "items" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "quantity" integer DEFAULT 1, "price" float DEFAULT 0.0, "tax" float DEFAULT 0.0, "name" varchar(255), "product_id" integer, "basket_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (11.8ms)[0m  [1mCREATE TABLE "orders" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "number" varchar(255), "note" varchar(255) DEFAULT '', "email" varchar(255), "ordered_on" date, "paid_on" date, "canceled_on" date, "shipped_on" date, "payment_type" varchar(255), "payment_info" varchar(255), "shipment_type" varchar(255), "shipment_info" varchar(255), "shipment_price" float DEFAULT 0.0, "shipment_tax" float DEFAULT 0.0, "address" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (12.4ms)[0m  CREATE TABLE "products" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "price" float NOT NULL, "name" varchar(255) NOT NULL, "link" varchar(255), "description" text DEFAULT '', "summary" text DEFAULT '', "main_picture_file_name" varchar(255), "main_picture_content_type" varchar(255), "main_picture_file_size" integer, "main_picture_updated_at" datetime, "extra_picture_file_name" varchar(255), "extra_picture_content_type" varchar(255), "extra_picture_file_size" integer, "extra_picture_updated_at" datetime, "online" boolean DEFAULT 'f', "cost" float DEFAULT 0.0, "weight" float DEFAULT 0.1, "ean" varchar(255) DEFAULT '', "tax" float DEFAULT 0.0, "inventory" integer DEFAULT 0, "stock_level" integer DEFAULT 0, "properties" varchar(255) DEFAULT '', "scode" varchar(255) DEFAULT '', "deleted_on" date, "product_id" integer, "category_id" integer, "supplier_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (12.4ms)[0m  [1mCREATE  INDEX "index_products_on_category_id" ON "products" ("category_id")[0m
+  [1m[35m (0.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_category_id' AND type='index'
+
+  [1m[36m (11.2ms)[0m  [1mCREATE  INDEX "index_products_on_link" ON "products" ("link")[0m
+  [1m[35m (0.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_link' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_link' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_category_id' AND type='index'
+[0m
+  [1m[35m (11.3ms)[0m  CREATE  INDEX "index_products_on_product_id" ON "products" ("product_id")
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_product_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_product_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_link' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_link' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_category_id' AND type='index'
+[0m
+  [1m[35m (11.4ms)[0m  CREATE  INDEX "index_products_on_supplier_id" ON "products" ("supplier_id")
+  [1m[36m (11.5ms)[0m  [1mCREATE TABLE "purchases" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "ordered_on" date, "received_on" date, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (11.2ms)[0m  CREATE TABLE "suppliers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "supplier_name" varchar(255), "address" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (10.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35m (9.1ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.2ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (10.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150924143821')
+  [1m[36m (8.8ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150924143815')[0m
+  [1m[35m (10.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150924143814')
+  [1m[36m (9.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150924143819')[0m
+  [1m[35m (10.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150924143820')
+  [1m[36m (9.0ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150924143818')[0m
+  [1m[35m (10.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150924143816')
+  [1m[36m (9.1ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150924143817')[0m
+  [1m[36m (13.5ms)[0m  [1mCREATE TABLE "baskets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "kori_id" integer, "kori_type" varchar(255), "total_price" decimal DEFAULT 0.0, "total_tax" decimal DEFAULT 0.0, "locked" date, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (38.7ms)[0m  CREATE TABLE "categories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "category_id" integer, "online" boolean DEFAULT 'f', "name" varchar(255), "description" text DEFAULT '', "summary" text DEFAULT '', "position" integer DEFAULT 1, "link" varchar(255), "main_picture_file_name" varchar(255), "main_picture_content_type" varchar(255), "main_picture_file_size" integer, "main_picture_updated_at" datetime, "extra_picture_file_name" varchar(255), "extra_picture_content_type" varchar(255), "extra_picture_file_size" integer, "extra_picture_updated_at" datetime, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.1ms)[0m  [1mselect sqlite_version(*)[0m
+  [1m[35m (56.1ms)[0m  CREATE UNIQUE INDEX "index_categories_on_link" ON "categories" ("link")
+  [1m[36m (66.8ms)[0m  [1mCREATE TABLE "clerks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar(255) DEFAULT '' NOT NULL, "admin" boolean DEFAULT 'f', "encrypted_password" varchar(255), "password_salt" varchar(255), "address" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (80.7ms)[0m  CREATE UNIQUE INDEX "index_clerks_on_email" ON "clerks" ("email")
+  [1m[36m (87.8ms)[0m  [1mCREATE TABLE "items" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "quantity" integer DEFAULT 1, "price" float DEFAULT 0.0, "tax" float DEFAULT 0.0, "name" varchar(255), "product_id" integer, "basket_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (79.1ms)[0m  CREATE TABLE "orders" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "number" varchar(255), "note" varchar(255) DEFAULT '', "email" varchar(255), "ordered_on" date, "paid_on" date, "canceled_on" date, "shipped_on" date, "payment_type" varchar(255), "payment_info" varchar(255), "shipment_type" varchar(255), "shipment_info" varchar(255), "shipment_price" float DEFAULT 0.0, "shipment_tax" float DEFAULT 0.0, "address" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (87.4ms)[0m  [1mCREATE TABLE "products" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "price" float NOT NULL, "name" varchar(255) NOT NULL, "link" varchar(255), "description" text DEFAULT '', "summary" text DEFAULT '', "main_picture_file_name" varchar(255), "main_picture_content_type" varchar(255), "main_picture_file_size" integer, "main_picture_updated_at" datetime, "extra_picture_file_name" varchar(255), "extra_picture_content_type" varchar(255), "extra_picture_file_size" integer, "extra_picture_updated_at" datetime, "online" boolean DEFAULT 'f', "cost" float DEFAULT 0.0, "weight" float DEFAULT 0.1, "ean" varchar(255) DEFAULT '', "tax" float DEFAULT 0.0, "inventory" integer DEFAULT 0, "stock_level" integer DEFAULT 0, "properties" varchar(255) DEFAULT '', "scode" varchar(255) DEFAULT '', "deleted_on" date, "product_id" integer, "category_id" integer, "supplier_id" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (67.1ms)[0m  CREATE  INDEX "index_products_on_category_id" ON "products" ("category_id")
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_category_id' AND type='index'
+[0m
+  [1m[35m (56.2ms)[0m  CREATE  INDEX "index_products_on_link" ON "products" ("link")
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_link' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_link' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_category_id' AND type='index'
+
+  [1m[36m (77.6ms)[0m  [1mCREATE  INDEX "index_products_on_product_id" ON "products" ("product_id")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_product_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_product_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_link' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_link' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_category_id' AND type='index'
+
+  [1m[36m (66.2ms)[0m  [1mCREATE  INDEX "index_products_on_supplier_id" ON "products" ("supplier_id")[0m
+  [1m[35m (44.6ms)[0m  CREATE TABLE "purchases" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "ordered_on" date, "received_on" date, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (125.1ms)[0m  [1mCREATE TABLE "suppliers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "supplier_name" varchar(255), "address" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (14.7ms)[0m  CREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) 
+  [1m[36m (39.1ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35m (0.1ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36m (67.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150924143821')[0m
+  [1m[35m (78.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150924143815')
+  [1m[36m (78.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150924143814')[0m
+  [1m[35m (78.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150924143819')
+  [1m[36m (67.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150924143820')[0m
+  [1m[35m (78.6ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150924143818')
+  [1m[36m (72.9ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150924143816')[0m
+  [1m[35m (63.1ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150924143817')
+  [1m[36m (133.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35m (0.2ms)[0m  select sqlite_version(*)
+  [1m[36m (66.5ms)[0m  [1mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+Migrating to Clerks (20150924143814)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  CREATE TABLE "clerks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar(255) DEFAULT '' NOT NULL, "admin" boolean DEFAULT 'f', "encrypted_password" varchar(255), "password_salt" varchar(255), "address" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.3ms)[0m  [1mCREATE UNIQUE INDEX "index_clerks_on_email" ON "clerks" ("email")[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150924143814"]]
+  [1m[36m (65.9ms)[0m  [1mcommit transaction[0m
+Migrating to Suppliers (20150924143815)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.4ms)[0m  [1mCREATE TABLE "suppliers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "supplier_name" varchar(255), "address" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES (?)  [["version", "20150924143815"]]
+  [1m[36m (73.3ms)[0m  [1mcommit transaction[0m
+Migrating to Categories (20150924143816)
+  [1m[35m (0.1ms)[0m  begin transaction
+  [1m[36m (0.6ms)[0m  [1mCREATE TABLE "categories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "category_id" integer, "online" boolean DEFAULT 'f', "name" varchar(255), "description" text DEFAULT '', "summary" text DEFAULT '', "position" integer DEFAULT 1, "link" varchar(255), "main_picture_file_name" varchar(255), "main_picture_content_type" varchar(255), "main_picture_file_size" integer, "main_picture_updated_at" datetime, "extra_picture_file_name" varchar(255), "extra_picture_content_type" varchar(255), "extra_picture_file_size" integer, "extra_picture_updated_at" datetime, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.4ms)[0m  CREATE UNIQUE INDEX "index_categories_on_link" ON "categories" ("link")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150924143816"]]
+  [1m[35m (150.3ms)[0m  commit transaction
+Migrating to Items (20150924143817)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "items" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "quantity" integer DEFAULT 1, "price" float DEFAULT 0, "tax" float DEFAULT 0, "name" varchar(255), "product_id" integer, "basket_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150924143817"]]
+  [1m[35m (75.7ms)[0m  commit transaction
+Migrating to Orders (20150924143818)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "orders" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "number" varchar(255), "note" varchar(255) DEFAULT '', "email" varchar(255), "ordered_on" date, "paid_on" date, "canceled_on" date, "shipped_on" date, "payment_type" varchar(255), "payment_info" varchar(255), "shipment_type" varchar(255), "shipment_info" varchar(255), "shipment_price" float DEFAULT 0, "shipment_tax" float DEFAULT 0, "address" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150924143818"]]
+  [1m[35m (86.0ms)[0m  commit transaction
+Migrating to Baskets (20150924143819)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.6ms)[0m  CREATE TABLE "baskets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "kori_id" integer, "kori_type" varchar(255), "total_price" decimal DEFAULT 0.0, "total_tax" decimal DEFAULT 0.0, "locked" date, "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150924143819"]]
+  [1m[35m (73.3ms)[0m  commit transaction
+Migrating to Purchases (20150924143820)
+  [1m[36m (0.1ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  CREATE TABLE "purchases" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "ordered_on" date, "received_on" date, "created_at" datetime, "updated_at" datetime) 
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150924143820"]]
+  [1m[35m (61.0ms)[0m  commit transaction
+Migrating to Products (20150924143821)
+  [1m[36m (0.2ms)[0m  [1mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  CREATE TABLE "products" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "price" float NOT NULL, "name" varchar(255) NOT NULL, "link" varchar(255), "description" text DEFAULT '', "summary" text DEFAULT '', "main_picture_file_name" varchar(255), "main_picture_content_type" varchar(255), "main_picture_file_size" integer, "main_picture_updated_at" datetime, "extra_picture_file_name" varchar(255), "extra_picture_content_type" varchar(255), "extra_picture_file_size" integer, "extra_picture_updated_at" datetime, "online" boolean DEFAULT 'f', "cost" float DEFAULT 0.0, "weight" float DEFAULT 0.1, "ean" varchar(255) DEFAULT '', "tax" float DEFAULT 0.0, "inventory" integer DEFAULT 0, "stock_level" integer DEFAULT 0, "properties" varchar(255) DEFAULT '', "scode" varchar(255) DEFAULT '', "deleted_on" date, "product_id" integer, "category_id" integer, "supplier_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (0.2ms)[0m  [1mCREATE  INDEX "index_products_on_product_id" ON "products" ("product_id")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_product_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_product_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1mCREATE  INDEX "index_products_on_category_id" ON "products" ("category_id")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_category_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_product_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_product_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  CREATE  INDEX "index_products_on_supplier_id" ON "products" ("supplier_id")
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_supplier_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_supplier_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_category_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_product_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_product_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m  CREATE  INDEX "index_products_on_link" ON "products" ("link")
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20150924143821"]]
+  [1m[35m (64.8ms)[0m  commit transaction
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_categories_on_link' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_categories_on_link' AND type='index'
+
+  [1m[36m (0.3ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_clerks_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_clerks_on_email' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_link' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_link' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_supplier_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_supplier_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_category_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_product_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_product_id' AND type='index'
+[0m
+  [1m[36mPurchase Load (0.1ms)[0m  [1mSELECT "purchases".* FROM "purchases"  WHERE "purchases"."name" IS NULL[0m
+  [1m[35m (12.2ms)[0m  CREATE TABLE "baskets" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "kori_id" integer, "kori_type" varchar(255), "total_price" decimal DEFAULT 0.0, "total_tax" decimal DEFAULT 0.0, "locked" date, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (105.4ms)[0m  [1mCREATE TABLE "categories" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "category_id" integer, "online" boolean DEFAULT 'f', "name" varchar(255), "description" text DEFAULT '', "summary" text DEFAULT '', "position" integer DEFAULT 1, "link" varchar(255), "main_picture_file_name" varchar(255), "main_picture_content_type" varchar(255), "main_picture_file_size" integer, "main_picture_updated_at" datetime, "extra_picture_file_name" varchar(255), "extra_picture_content_type" varchar(255), "extra_picture_file_size" integer, "extra_picture_updated_at" datetime, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (0.1ms)[0m  select sqlite_version(*)
+  [1m[36m (111.4ms)[0m  [1mCREATE UNIQUE INDEX "index_categories_on_link" ON "categories" ("link")[0m
+  [1m[35m (112.0ms)[0m  CREATE TABLE "clerks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "email" varchar(255) DEFAULT '' NOT NULL, "admin" boolean DEFAULT 'f', "encrypted_password" varchar(255), "password_salt" varchar(255), "address" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (123.5ms)[0m  [1mCREATE UNIQUE INDEX "index_clerks_on_email" ON "clerks" ("email")[0m
+  [1m[35m (88.2ms)[0m  CREATE TABLE "items" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "quantity" integer DEFAULT 1, "price" float DEFAULT 0.0, "tax" float DEFAULT 0.0, "name" varchar(255), "product_id" integer, "basket_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (79.5ms)[0m  [1mCREATE TABLE "orders" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "number" varchar(255), "note" varchar(255) DEFAULT '', "email" varchar(255), "ordered_on" date, "paid_on" date, "canceled_on" date, "shipped_on" date, "payment_type" varchar(255), "payment_info" varchar(255), "shipment_type" varchar(255), "shipment_info" varchar(255), "shipment_price" float DEFAULT 0.0, "shipment_tax" float DEFAULT 0.0, "address" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (98.0ms)[0m  CREATE TABLE "products" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "price" float NOT NULL, "name" varchar(255) NOT NULL, "link" varchar(255), "description" text DEFAULT '', "summary" text DEFAULT '', "main_picture_file_name" varchar(255), "main_picture_content_type" varchar(255), "main_picture_file_size" integer, "main_picture_updated_at" datetime, "extra_picture_file_name" varchar(255), "extra_picture_content_type" varchar(255), "extra_picture_file_size" integer, "extra_picture_updated_at" datetime, "online" boolean DEFAULT 'f', "cost" float DEFAULT 0.0, "weight" float DEFAULT 0.1, "ean" varchar(255) DEFAULT '', "tax" float DEFAULT 0.0, "inventory" integer DEFAULT 0, "stock_level" integer DEFAULT 0, "properties" varchar(255) DEFAULT '', "scode" varchar(255) DEFAULT '', "deleted_on" date, "product_id" integer, "category_id" integer, "supplier_id" integer, "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (90.1ms)[0m  [1mCREATE  INDEX "index_products_on_category_id" ON "products" ("category_id")[0m
+  [1m[35m (0.2ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_category_id' AND type='index'
+
+  [1m[36m (110.6ms)[0m  [1mCREATE  INDEX "index_products_on_link" ON "products" ("link")[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_link' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_link' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_category_id' AND type='index'
+[0m
+  [1m[35m (122.0ms)[0m  CREATE  INDEX "index_products_on_product_id" ON "products" ("product_id")
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_product_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_product_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_link' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_link' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_category_id' AND type='index'
+[0m
+  [1m[35m (111.3ms)[0m  CREATE  INDEX "index_products_on_supplier_id" ON "products" ("supplier_id")
+  [1m[36m (78.2ms)[0m  [1mCREATE TABLE "purchases" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar(255), "ordered_on" date, "received_on" date, "created_at" datetime, "updated_at" datetime) [0m
+  [1m[35m (100.3ms)[0m  CREATE TABLE "suppliers" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "supplier_name" varchar(255), "address" varchar(255), "created_at" datetime, "updated_at" datetime) 
+  [1m[36m (110.7ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [1m[35m (67.2ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+  [1m[36m (0.1ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (77.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150924143821')
+  [1m[36m (136.7ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150924143815')[0m
+  [1m[35m (88.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150924143814')
+  [1m[36m (68.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150924143819')[0m
+  [1m[35m (110.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150924143820')
+  [1m[36m (78.6ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150924143818')[0m
+  [1m[35m (100.7ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20150924143816')
+  [1m[36m (124.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20150924143817')[0m
+  [1m[36mPurchase Load (0.1ms)[0m  [1mSELECT "purchases".* FROM "purchases"  WHERE "purchases"."name" IS NULL[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_categories_on_link' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_categories_on_link' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_clerks_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_clerks_on_email' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_link' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_link' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_supplier_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_supplier_id' AND type='index'
+[0m
+  [1m[35m (0.1ms)[0m              SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_category_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_category_id' AND type='index'
+
+  [1m[36m (0.1ms)[0m  [1m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_products_on_product_id' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_products_on_product_id' AND type='index'
+[0m
+  [1m[36mPurchase Load (0.1ms)[0m  [1mSELECT "purchases".* FROM "purchases"  WHERE "purchases"."name" IS NULL[0m
+  [1m[36mPurchase Load (0.1ms)[0m  [1mSELECT "purchases".* FROM "purchases"  WHERE "purchases"."name" IS NULL[0m
+  [1m[36mPurchase Load (0.1ms)[0m  [1mSELECT "purchases".* FROM "purchases"  WHERE "purchases"."name" IS NULL[0m
+  [1m[36mPurchase Load (0.1ms)[0m  [1mSELECT "purchases".* FROM "purchases"  WHERE "purchases"."name" IS NULL[0m
+  [1m[36mPurchase Load (0.1ms)[0m  [1mSELECT "purchases".* FROM "purchases"  WHERE "purchases"."name" IS NULL[0m
+  [1m[36mPurchase Load (0.1ms)[0m  [1mSELECT "purchases".* FROM "purchases"  WHERE "purchases"."name" IS NULL[0m
+  [1m[36mPurchase Load (0.1ms)[0m  [1mSELECT "purchases".* FROM "purchases"  WHERE "purchases"."name" IS NULL[0m
+  [1m[36mPurchase Load (0.1ms)[0m  [1mSELECT "purchases".* FROM "purchases"  WHERE "purchases"."name" IS NULL[0m
+  [1m[36mPurchase Load (0.1ms)[0m  [1mSELECT "purchases".* FROM "purchases"  WHERE "purchases"."name" IS NULL[0m
+  [1m[36mPurchase Load (0.2ms)[0m  [1mSELECT "purchases".* FROM "purchases"  WHERE "purchases"."name" IS NULL[0m

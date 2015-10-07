@@ -13,3 +13,24 @@ gemspec
 # To use a debugger
 # gem 'byebug', group: [:development, :test]
 
+## STRIPE payment by card
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+gem 'office_clerk', :github => "rubyclerks/office_clerk"
+
+group :test do
+  gem "poltergeist"
+  gem "phantomjs", :require => 'phantomjs/poltergeist'
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'capybara-screenshot'
+  gem 'database_cleaner'
+  gem "factory_girl_rails"
+  gem 'i18n-spec'
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'selenium-webdriver'
+  gem 'rack_session_access'
+  gem 'sqlite3'
+end
+
+

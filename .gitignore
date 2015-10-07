@@ -1,8 +1,12 @@
 .bundle/
 log/*.log
 pkg/
-test/dummy/db/*.sqlite3
-test/dummy/db/*.sqlite3-journal
-test/dummy/log/*.log
-test/dummy/tmp/
-test/dummy/.sass-cache
+dummy/db/*.sqlite3
+dummy/db/test.sqlite3
+dummy/db/*.sqlite3-journal
+dummy/log/*.log
+dummy/tmp/*
+dummy/.sass-cache
+.rspec
+
+
